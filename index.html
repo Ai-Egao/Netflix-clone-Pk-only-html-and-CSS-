@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background: #000;
+        }
+
+        main {
+            height: 100vh;
+            background-image: url(./images/background.jpg);
+            background-size: cover;
+            /* Ensures the image covers the whole area */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents tiling */
+        }
+
+        .main {
+            background-color: rgba(0, 0, 0, 0.77);
+            /* Only the background is transparent */
+            height: 100vh;
+            /* Remove opacity property */
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 9vw;
+            height: 68px;
+        }
+
+        nav img {
+            height: 60px;
+            filter: brightness(0.3) sepia(1) saturate(100);
+        }
+
+        nav button {
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 7px 18px;
+            font-size: 8pt;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        nav button:hover {
+            background-color: #f40612;
+        }
+
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: calc(100vh - 68px);
+            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 18px;
+            line-height: 1.1;
+        }
+
+        .hero h2 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        .hero-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            max-width: 600px;
+            margin: 0;
+            width: 100%;
+        }
+
+        .hero-form input[type="email"] {
+            padding: 9px;
+            font-size: 1rem;
+            border: 1px solid white;
+            outline: none;
+            width: 50%;
+            max-width: 350px;
+            background: rgba(0, 0, 0, 0.6);
+            /* semi-transparent black */
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .hero-form input[type="email"]::placeholder {
+            color: #b3b3b3;
+        }
+
+        .hero-form button {
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 9px;
+            font-size: 1rem;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .hero-form button:hover {
+            background-color: #f40612;
+        }
+
+/*======================== trending section =======================*/
+        .trending-section {
+            padding: 48px 0 32px 0;
+            background: transparent;
+            width: 100%;
+            position: relative;
+        }
+        .trending-section h2 {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-left: 9vw;
+            margin-bottom: 24px;
+        }
+        .trending-slider-container {
+            margin: 0 9vw;
+        }
+        .trending-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 24px;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #181818;
+        }
+        .trending-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        .trending-slider::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        .trending-slider::-webkit-scrollbar-track {
+            background: #181818;
+        }
+        .trending-card {
+            background:  rgb(0, 0, 0, 0.77);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            min-width: 200px;
+            max-width: 220px;
+            flex: 0 0 auto;
+            position: relative; /* Add this */
+        }
+        .trending-card:hover {
+            transform: scale(1.05);
+        }
+        .trending-card img {
+            width: 100%;
+            height: 250px; /* or any height you prefer */
+            object-fit: cover;
+            display: block;
+        }
+        .trending-card-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px;
+            text-align: center;
+            background: rgba(0,0,0,0.5); /* semi-transparent black */
+            box-sizing: border-box;
+        }
+        @media (max-width: 700px) {
+            .trending-card {
+                min-width: 140px;
+                max-width: 160px;
+            }
+        }
+
+/*======================== reasons section =======================*/
+        .reasons-section {
+            padding: 48px 0 32px 0;
+            background: transparent;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+        }
+        .reasons-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .reasons-list {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 32px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #181818;
+            -webkit-overflow-scrolling: touch;
+        }
+        .reasons-list::-webkit-scrollbar {
+            height: 8px;
+        }
+        .reasons-list::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        .reasons-list::-webkit-scrollbar-track {
+            background: #181818;
+        }
+        .reason-card {
+            flex: 0 0 auto;
+            background: linear-gradient(135deg, #482520 0%, #281474 100%); /* Purple gradient */
+            border-radius: 8px;
+            padding: 24px 18px;
+            width: 220px;
+            height: 130px; /* Match trending card height */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .reason-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .reason-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .reason-card p {
+            font-size: 0.80rem;
+            color: #ccc;
+            margin-top: 18px;
+        }
+        @media (max-width: 700px) {
+            .reasons-list {
+                /* Remove column direction, keep horizontal scroll */
+                flex-direction: row;
+                align-items: stretch;
+            }
+            .reason-card {
+                width: 220px;
+            }
+        }
+        /*======================== faq section =======================*/
+        .faq-section {
+            padding: 48px 0 32px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+        }
+        .faq-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .faq-item {
+            margin-bottom: 16px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #ffffff1a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 18px 24px;
+            cursor: pointer;
+            outline: none;
+            list-style: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .faq-question:hover, .faq-item[open] .faq-question {
+            background: #ffffff33;
+        }
+        .faq-question::after {
+            content: "+";
+            font-size: 2rem;
+            color: #fff;
+            margin-left: 16px;
+            transition: transform 0.2s;
+        }
+
+        .faq-item[open] .faq-question::after {
+            content: "×"; /* or use "–" for a minus sign */
+            color: #fff;
+            transform: rotate(0deg);
+        }
+        .faq-answer {
+            padding: 0 24px 18px 24px;
+            color: #ccc;
+            font-size: 1rem;
+        }
+        .faq-item[open] .faq-question {
+            background: rgba(255,255,255,0.05);
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <div class="main">
+            <nav>
+                <img src="./images/logo.png" alt="Netflix logo">
+                <button>Sign In</button>
+            </nav>
+            <section class="hero">
+                <h1>Unlimited movies, TV <br> shows, and more</h1>
+                <h2>Starts at Rs 250. Cancel anytime.</h2>
+                <p>Ready to watch? Enter your email to create or restart your membership.</p>
+                <form class="hero-form">
+                    <input type="email" placeholder="Email address" required>
+                    <button type="submit">Get Started <span style="font-size:1.2em; ">&#62;</span></button>
+                </form>
+            </section>
+            <section class="trending-section">
+                <h2>Trending Now</h2>
+                <div class="trending-slider-container">
+                    <div class="trending-slider">
+                        <div class="trending-card">
+                            <img src="./images/Sg.jpg" alt="Squid Game">
+                            <div class="trending-card-title">Squid Game</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/r2.jpg" alt="Raid 2">
+                            <div class="trending-card-title">Raid 2</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/k.jpg" alt="The Great Indian Kapil Show">
+                            <div class="trending-card-title">The Great Indian Kapil Show</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/og.jpg" alt="The Old Guard 2">
+                            <div class="trending-card-title">The Old Guard 2</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/p4.jpg" alt="Kung Fu Panda 4 ">
+                            <div class="trending-card-title">Kung Fu Panda 4</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/tr.jpg" alt="The Royals">
+                            <div class="trending-card-title">The Royals</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/s.jpg" alt="Sikandar">
+                            <div class="trending-card-title">Sikandar</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/sm.jpg" alt="The Sandman">
+                            <div class="trending-card-title">The Sandman</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/ds.jpg" alt="Demon slayer">
+                            <div class="trending-card-title">Demon slayer infinity castle</div>
+                        </div>
+                        <div class="trending-card">
+                            <img src="./images/mh.jpg" alt="Money Heist">
+                            <div class="trending-card-title">Money Hiest</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="reasons-section">
+                <h2>More Reasons to Join</h2>
+                <div class="reasons-list">
+                    <div class="reason-card">
+                        <h3>Watch Anywhere</h3>
+                        <p>Stream on your phone, tablet, laptop, and TV.</p>
+                    </div>
+                    <div class="reason-card">
+                        <h3>Download and Go</h3>
+                        <p>Save your favorites easily and always have something to watch.</p>
+                    </div>
+                    <div class="reason-card">
+                        <h3>No Ads</h3>
+                        <p>Enjoy uninterrupted viewing with no ads, ever.</p>
+                    </div>
+                    <div class="reason-card">
+                        <h3>For the Whole Family</h3>
+                        <p>Create profiles for kids and adults.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary class="faq-question">What is Netflix?</summary>
+                        <div class="faq-answer">
+                            Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.<br><br>
+                            You can watch as much as you want, whenever you want – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">How much does Netflix cost?</summary>
+                        <div class="faq-answer">
+                            Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from US$7.99 to US$24.99 a month. No extra costs, no contracts.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Where can I watch?</summary>
+                        <div class="faq-answer">
+                            Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles.<br><br>
+                            You can also download your favorite shows with the iOS or Android app. Use downloads to watch while you're on the go and without an internet connection. Take Netflix with you anywhere.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">How do I cancel?</summary>
+                        <div class="faq-answer">
+                            Netflix is flexible. There are no pesky contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">What can I watch on Netflix?</summary>
+                        <div class="faq-answer">
+                            Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">Is Netflix good for kids?</summary>
+                        <div class="faq-answer">
+                            The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space.<br><br>
+                            Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don’t want kids to see.
+                        </div>
+                    </details>
+                </div>
+            </section>
+            <section class="cta-section" style="padding: 48px 0 32px 0; text-align: center;">
+                <p style="color: #fff; font-size: 1.2rem; margin-bottom: 18px;">Ready to watch? Enter your email to create or restart your membership.</p>
+                <form class="hero-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email address" required>
+                    <button type="submit">Get Started <span style="font-size:1.2em;">&#62;</span></button>
+                </form>
+                <div style="margin-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <button style="background: none; border: 1px solid #fff; color: #fff; border-radius: 3px; padding: 6px 18px; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.2em;">&#127760;</span> English
+                    </button>
+                    <span style="color: #b3b3b3; font-size: 0.95rem; max-width: 400px;">Netflix pakistan </span>
+                </div>
+            </section>
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>
